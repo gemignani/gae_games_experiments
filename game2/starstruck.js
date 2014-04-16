@@ -25,6 +25,7 @@ var cursors;
 var jumpButton;
 var bg;
 var playerdoublejump = 0;
+var pathfinder;
 
 function create() {
 
@@ -40,6 +41,10 @@ function create() {
     map.addTilesetImage('tiles-1');
     map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
     layer = map.createLayer('Tile Layer 1');
+
+    var walkables = [200];
+    pathfinder = game.plugins.add(Phaser.Plugin.PathFinderPlugin);
+    pathfinder.setGrid(map.layers[0].data, walkables);
 
     //  Un-comment this on to see the collision tiles
     //layer.debug = true;
@@ -80,6 +85,21 @@ function create() {
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 }
+
+function findPathTo(tilex, tiley) {
+
+    pathfinder.setCallbackFunction(function(path) {
+        path = path || [];
+        for(var i = 0, ilen = path.length; i < ilen; i++) {
+            map.putTile(46, path[i].x, path[i].y);
+        }
+        blocked = false;
+    });
+
+    pathfinder.preparePathCalculation([0,0], [tilex,tiley]);
+    pathfinder.calculatePath();
+}
+
 
 function update() {
 
@@ -140,8 +160,14 @@ function update() {
 		playerdoublejump++;
 	}
 	 
-	
     }
+/*
+    if (game.input.mousePointer.isDown)
+    {
+        blocked = true;
+        findPathTo(layer.getTileX(marker.x), layer.getTileY(marker.y));
+    }
+*/
 
 }
 
