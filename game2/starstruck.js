@@ -108,11 +108,11 @@ function findPathTo(tilex, tiley) {
 
     pathfinder.setCallbackFunction(function(path) {
         path = path || [];
-		if (path==null) {
+		/*if (path==null) {
 			alert("Path was not found.");
 		} else {
 			alert("Path was found. The first Point is " + path[0].x + " " + path[0].y);
-		}
+		}*/
         for(var i = 0, ilen = path.length; i < ilen; i++) {
             map.putTile(46, path[i].x, path[i].y);
         }
@@ -120,7 +120,7 @@ function findPathTo(tilex, tiley) {
     });
 //enemy.position.x, enemy.position.y
     //pathfinder.preparePathCalculation([0, 0], [30, 30]);
-	pathfinder.preparePathCalculation([0,0], [tilex,tiley]);
+	pathfinder.preparePathCalculation([layer.getTileX(exit.x),layer.getTileY(exit.x)], [tilex,tiley]);
     pathfinder.calculatePath();
 }
 
@@ -185,17 +185,17 @@ function update() {
 		}
     }
 
-	marker.x = layer.getTileX(game.input.activePointer.worldX);
-    marker.y = layer.getTileY(game.input.activePointer.worldY);
+	marker.x = layer.getTileX(game.input.activePointer.worldX) * 32;
+    marker.y = layer.getTileY(game.input.activePointer.worldY) * 32;
 
 	
     if (game.input.mousePointer.isDown && !under_calc)
     {
 		under_calc = true;
-		alert("pointer marker.x = " + marker.x + " pointer marker.y = " + marker.y);		
-		alert("layer.getTileX(marker.x) = " + layer.getTileX(marker.x) + " layer.getTileY(marker.y) = " + layer.getTileY(marker.y));		
+		//alert("pointer marker.x = " + enemy.x + " pointer marker.y = " + enemy.y);		
+		//alert("layer.getTileX(enemy.x) = " + layer.getTileX(enemy.x) + " layer.getTileY(marker.y) = " + layer.getTileY(enemy.y));		
         //findPathTo(exit.x, exit.y);
-		findPathTo(layer.getTileX(marker.x), layer.getTileY(marker.y));
+		findPathTo(layer.getTileX(enemy.x), layer.getTileY(enemy.y));
     }
 
 
