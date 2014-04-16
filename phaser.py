@@ -20,7 +20,8 @@ class MainPage(webapp2.RequestHandler):
   def get(self):
 
     self.response.out.write("""Doug's list of HTML games:
-			     <p><a href=/game1/main.html> Phaser</a></p>""")
+			     <p><a href=/game1/main.html> Jumping!</a></p>
+			     <p><a href=/game2/main.html> Running!</a></p>""")
 
 
 

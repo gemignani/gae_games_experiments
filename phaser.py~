@@ -19,7 +19,7 @@ import webapp2
 class MainPage(webapp2.RequestHandler):
   def get(self):
 
-    self.response.out.write("""List of HTML games:
+    self.response.out.write("""Doug's list of HTML games:
 			     <p><a href=/game1/main.html> Phaser</a></p>""")
 
 

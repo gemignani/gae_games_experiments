@@ -1,4 +1,4 @@
-application: phaser
+application: doug-game
 version: 1
 runtime: python27
 api_version: 1
@@ -7,6 +7,8 @@ threadsafe: yes
 handlers:
 - url: /game1
   static_dir: game1
+- url: /game2
+  static_dir: game2
 - url: /.*
   script: phaser.app
 
