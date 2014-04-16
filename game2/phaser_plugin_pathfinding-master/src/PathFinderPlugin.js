@@ -38,8 +38,7 @@ Phaser.Plugin.PathFinderPlugin.prototype.setGrid = function (grid, walkables, it
         this._grid[i] = []
         for (var j = 0; j < grid[i].length; j++)
         {
-			if (grid[i][j]) this._grid[i][j] = grid[i][j].index
-			else this._grid[i][j] = 0;
+            this._grid[i][j] = grid[i][j].index
         }
     }
     this._walkables = walkables;
