@@ -30,7 +30,7 @@ Enemy.prototype.constructor = Enemy;
 
 Enemy.prototype.update = function(){
 
-    this.body.velocity.x = 0;
+    //this.body.velocity.x = 0;
 
 };
 
@@ -38,20 +38,21 @@ Enemy.prototype.findPathTo = function(tilex, tiley){
 
     this.pathfinder.setCallbackFunction(function(path) {
         path = path || [];
-		if (path) {
-			alert("Path was found. The first Point is " + path[0].x + " " + path[0].y);
-		}
-        for(var i = 0, ilen = path.length; i < ilen; i++) {
-            this.game.map.putTile(46, path[i].x, path[i].y);
-        }
+		//if (path) {
+			//alert("Path was found. The first Point is " + path[0].x + " " + path[0].y);
+		//}
+        //for(var i = 0, ilen = path.length; i < ilen; i++) {
+            //this.game.map.putTile(46, path[i].x, path[i].y);
+        //}
         
-        //logging.debug("value of my var is %s", str(path[i].x))
-                
+        //logging.debug("value of my var is %s", str(path[i].x))                
         under_calc = false;
     });
 	//[this.game.map.layers.getTileX(exit.x), this.game.map.layers.getTileY(exit.x)]
 	this.pathfinder.preparePathCalculation([0,0], [tilex,tiley]);
     this.pathfinder.calculatePath();   
+	
+	this.game.map.putTile(46,0,1);
 }
 
 Enemy.prototype.updateAI = function(){

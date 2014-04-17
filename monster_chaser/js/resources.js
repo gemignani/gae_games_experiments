@@ -23,7 +23,7 @@ MainGame.resources.LoaderState = {
 
 	]
 	, tilemaps: [
-		  {name: 'level0', path: 'assets/tilemaps/level0.json'}
+		  {name: 'level0', path: 'assets/tilemaps/level1.json'}
 	]
 	, audio: [
 

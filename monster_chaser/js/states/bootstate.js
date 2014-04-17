@@ -19,13 +19,13 @@ MainGame.BootState.prototype = {
 	create: function(){
 
 		this.game.keys 			= {};
-		this.game.keys.UP 		= game.input.keyboard.addKey(Phaser.Keyboard.W);
-		this.game.keys.DOWN 	= game.input.keyboard.addKey(Phaser.Keyboard.S);
+		//this.game.keys.UP 		= game.input.keyboard.addKey(Phaser.Keyboard.W);
+		//this.game.keys.DOWN 	= game.input.keyboard.addKey(Phaser.Keyboard.S);
 		this.game.keys.LEFT 	= game.input.keyboard.addKey(Phaser.Keyboard.A);
 		this.game.keys.RIGHT 	= game.input.keyboard.addKey(Phaser.Keyboard.D);
-		this.game.keys.REMOVE   = game.input.keyboard.addKey(Phaser.Keyboard.R);
+		//this.game.keys.REMOVE   = game.input.keyboard.addKey(Phaser.Keyboard.R);
 		this.game.keys.SPACE    = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-		this.game.keys.DEBUG     = game.input.keyboard.addKey(Phaser.Keyboard.P);
+		//this.game.keys.DEBUG     = game.input.keyboard.addKey(Phaser.Keyboard.P);
 		this.game.state.start('Loader');
 	}
 };

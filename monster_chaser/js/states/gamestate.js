@@ -19,22 +19,21 @@ MainGame.GameState.prototype = {
 		this.game.map.addTilesetImage('tiles-1');
 		this.game.map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
 		
+		this.game.layer = this.game.map.createLayer('Tile Layer 1');
 		
-		this.game.layer = this.game.map.createLayer(0);
-		this.game.layer.resizeWorld();
 		//Un-comment this on to see the collision tiles
-		//this.game.layer.debug = true;
+		this.game.layer.debug = true;
 		CollisionManager.addObjectToGroup(this.game.layer, 'layers');
-		
+		this.game.layer.resizeWorld();
 		//setup world		
-		this.game.physics.arcade.gravity.y = 350;	
+		this.game.physics.arcade.gravity.y = 250;	
 		
 		//adding entities
-		this.game.player = new Player(this.game, {x:32, y:800}); //62, 32 for tile1		
-		this.game.enemy = new Enemy(this.game, {x:62, y:800});		
+		this.game.player = new Player(this.game, {x:32, y:900}); //62, 32 for tile1		
+		this.game.enemy = new Enemy(this.game, {x:62, y:900});		
 		//this.exit = game.add.sprite(500, 500, 'door');
 		
-		GUIManager.setup();
+		//GUIManager.setup();
 
 	},
 
@@ -42,7 +41,7 @@ MainGame.GameState.prototype = {
 
 		//InputManager.update();
 		CollisionManager.update();
-		GUIManager.update();
+		//GUIManager.update();
 		//WaveManager.update();
 		
 	},
@@ -51,7 +50,8 @@ MainGame.GameState.prototype = {
 		
 		//debug stuff
 		 //game.debug.text(game.time.physicsElapsed, 32, 32);
-		 //game.debug.body(player);
-		 //game.debug.bodyInfo(player, 16, 24);
+		 //this.game.debug.renderSpriteBody(this.game.player);
+		 //this.game.debug.body(this.player);
+		 
 	}
 };
