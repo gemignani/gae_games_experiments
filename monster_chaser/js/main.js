@@ -9,28 +9,10 @@ game.state.add('MainMenu', MainGame.MainMenuState);
 game.state.add('Game', MainGame.GameState);
 //game.state.add('GameOver', MainGame.GameOverState);
 
-AiManager = new AiManager(game);
+GUIManager = new GUIManager(game);
+CollisionManager = new CollisionManager(game);
 
 
 game.state.start('Boot');
 
 window.game = game;
-
-/*
-
-var map;
-var tileset;
-var layer;
-
-var enemy;
-var exit;
-var facing = 'left';
-var jumpTimer = 0;
-var cursors;
-var jumpButton;
-var bg;
-var playerdoublejump = 0;
-var pathfinder;
-var under_calc = false;
-*/
-

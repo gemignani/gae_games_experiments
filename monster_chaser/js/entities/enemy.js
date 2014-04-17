@@ -13,9 +13,16 @@ function Enemy(game, spawn) {
     this.animations.add('turn', [4], 20, true);
     this.animations.add('right', [5, 6, 7, 8], 10, true);
 
-    this.game.camera.follow(this);
-	
+    CollisionManager.addObjectToGroup(this, 'enemies');
 	this.game.add.existing(this);
+	
+	// AI updates
+	this.game.time.events.repeat(Phaser.Timer.HALF, 10, this.updateAI, this);
+	this.walkables = [0];
+	this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);	
+	this.pathfinder.setGrid(this.game.map.layers[0].data, this.walkables);
+	
+	this.under_calc = false;
 }
 
 Enemy.prototype = Object.create( Phaser.Sprite.prototype );
@@ -25,96 +32,34 @@ Enemy.prototype.update = function(){
 
     this.body.velocity.x = 0;
 
-    /*if (cursors.left.isDown) {
-        this.body.velocity.x = -150;
-
-        if (this.ffacing != 'left') {
-            this.animations.play('left');
-            this.facing = 'left';
-        }
-    }
-    else if (cursors.right.isDown) {
-        this.body.velocity.x = 150;
-
-        if (this.ffacing != 'right') {
-            this.animations.play('right');
-            this.ffacing = 'right';
-        }
-    }
-    else
-    {
-        if (this.ffacing != 'idle') {
-            this.animations.stop();
-
-            if (this.ffacing == 'left') {
-                this.frame = 0;
-            }
-            else {
-                this.frame = 5;
-            }
-
-            this.ffacing = 'idle';
-        }
-    }
-    
-    if (jumpButton.isDown && game.time.now > this.jumpTimer) {
-		if (this.body.onFloor() == 1 ) {
-			this.playerdoublejump = 0;
-				this.body.velocity.y = -250;
-				this.jumpTimer = game.time.now + 550;
-		} else if (this.fplayerdoublejump == 0) {
-				this.body.velocity.y = -200;
-				this.jumpTimer = game.time.now + 500;
-			this.playerdoublejump++;
-		}
-    }*/
-    
-    /*
-	if(this.game.keys.UP.isDown){
-		this.body.velocity.y = -this.speed;
-	}
-	else if(this.game.keys.DOWN.isDown){
-		this.body.velocity.y = this.speed;
-	}
-	else{
-		this.body.velocity.y = 0;
-	}
-
-	if(this.game.keys.LEFT.isDown){
-		this.body.velocity.x = -this.speed;
-	}
-	else if(this.game.keys.RIGHT.isDown){
-		this.body.velocity.x = this.speed;
-	}
-	else{
-		this.body.velocity.x = 0;
-	}
-
-	var dist  = this.game.input.mousePointer.worldX - this.x;
-
-	if(dist >= 0){
-		this.dir = "right";
-	}
-	else{
-		this.dir = "left"
-	}
-
-	if(this.body.velocity.x != 0 || this.body.velocity.y != 0){
-		if(this.damaged){
-			this.animations.play(this.dir + '-damaged');
-		}
-		else{
-			this.animations.play(this.dir);
-		}
-	}
-	else{
-		if(this.damaged){
-			this.animations.play(this.dir + '-idle-damaged');
-		}
-		else{
-			this.animations.play(this.dir + '-idle')
-		}
-	}*/
-
-
 };
+
+Enemy.prototype.findPathTo = function(tilex, tiley){
+
+    this.pathfinder.setCallbackFunction(function(path) {
+        path = path || [];
+		if (path) {
+			alert("Path was found. The first Point is " + path[0].x + " " + path[0].y);
+		}
+        for(var i = 0, ilen = path.length; i < ilen; i++) {
+            this.game.map.putTile(46, path[i].x, path[i].y);
+        }
+        
+        //logging.debug("value of my var is %s", str(path[i].x))
+                
+        under_calc = false;
+    });
+	//[this.game.map.layers.getTileX(exit.x), this.game.map.layers.getTileY(exit.x)]
+	this.pathfinder.preparePathCalculation([0,0], [tilex,tiley]);
+    this.pathfinder.calculatePath();   
+}
+
+Enemy.prototype.updateAI = function(){
+	
+    if (this.under_calc == false) {
+		this.under_calc = true;
+		this.findPathTo(1, 1);
+		//this.game.map.layers.getTileX(this.x), this.game.map.layers.getTileY(this.y)
+    }
+
+}

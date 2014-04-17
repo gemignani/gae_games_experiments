@@ -14,8 +14,13 @@ function Player(game, spawn) {
     this.animations.add('right', [5, 6, 7, 8], 10, true);
 
     this.game.camera.follow(this);
-	
+	CollisionManager.addObjectToGroup(this, 'players');
 	this.game.add.existing(this);
+	
+	//local vars
+	this.facing = 'left';
+	this.jumpTimer = this.game.time.now;
+	this.playerdoublejump = 0;
 }
 
 Player.prototype = Object.create( Phaser.Sprite.prototype );
@@ -25,96 +30,47 @@ Player.prototype.update = function(){
 
     this.body.velocity.x = 0;
 
-    /*if (cursors.left.isDown) {
+    if (this.game.keys.LEFT.isDown) {
         this.body.velocity.x = -150;
 
-        if (this.ffacing != 'left') {
+        if (this.facing != 'left') {
             this.animations.play('left');
             this.facing = 'left';
         }
     }
-    else if (cursors.right.isDown) {
+    else if (this.game.keys.RIGHT.isDown) {
         this.body.velocity.x = 150;
 
-        if (this.ffacing != 'right') {
+        if (this.facing != 'right') {
             this.animations.play('right');
-            this.ffacing = 'right';
+            this.facing = 'right';
         }
     }
     else
     {
-        if (this.ffacing != 'idle') {
+        if (this.facing != 'idle') {
             this.animations.stop();
 
-            if (this.ffacing == 'left') {
+            if (this.facing == 'left') {
                 this.frame = 0;
             }
             else {
                 this.frame = 5;
             }
 
-            this.ffacing = 'idle';
+            this.facing = 'idle';
         }
     }
     
-    if (jumpButton.isDown && game.time.now > this.jumpTimer) {
+    if (this.game.keys.SPACE.isDown && this.game.time.now > this.jumpTimer) {
 		if (this.body.onFloor() == 1 ) {
 			this.playerdoublejump = 0;
-				this.body.velocity.y = -250;
-				this.jumpTimer = game.time.now + 550;
-		} else if (this.fplayerdoublejump == 0) {
-				this.body.velocity.y = -200;
-				this.jumpTimer = game.time.now + 500;
+			this.body.velocity.y = -250;
+			this.jumpTimer = this.game.time.now + 550;
+		} else if (this.playerdoublejump == 0) {
 			this.playerdoublejump++;
+			this.body.velocity.y = -200;
+			this.jumpTimer = this.game.time.now + 500;			
 		}
-    }*/
-    
-    /*
-	if(this.game.keys.UP.isDown){
-		this.body.velocity.y = -this.speed;
-	}
-	else if(this.game.keys.DOWN.isDown){
-		this.body.velocity.y = this.speed;
-	}
-	else{
-		this.body.velocity.y = 0;
-	}
-
-	if(this.game.keys.LEFT.isDown){
-		this.body.velocity.x = -this.speed;
-	}
-	else if(this.game.keys.RIGHT.isDown){
-		this.body.velocity.x = this.speed;
-	}
-	else{
-		this.body.velocity.x = 0;
-	}
-
-	var dist  = this.game.input.mousePointer.worldX - this.x;
-
-	if(dist >= 0){
-		this.dir = "right";
-	}
-	else{
-		this.dir = "left"
-	}
-
-	if(this.body.velocity.x != 0 || this.body.velocity.y != 0){
-		if(this.damaged){
-			this.animations.play(this.dir + '-damaged');
-		}
-		else{
-			this.animations.play(this.dir);
-		}
-	}
-	else{
-		if(this.damaged){
-			this.animations.play(this.dir + '-idle-damaged');
-		}
-		else{
-			this.animations.play(this.dir + '-idle')
-		}
-	}*/
-
-
+    }
 };
