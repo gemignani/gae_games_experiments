@@ -7,7 +7,7 @@ threadsafe: yes
 handlers:
 - url: /game1
   static_dir: game1
-- url: /monster_chaser
+- url: /monster_chaser/.*
   static_dir: monster_chaser
 - url: /.*
   script: phaser.app

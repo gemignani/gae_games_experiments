@@ -32,6 +32,7 @@ var under_calc = false;
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
+
     game.stage.backgroundColor = '#000000';
 
     //set-up map
@@ -75,7 +76,7 @@ function create() {
 
     game.camera.follow(player);
 
-	//adding enemy char 'enemy'
+   //adding enemy char 'enemy'
     //enemy = game.add.sprite(62, 32, 'blackdude');
 	enemy = game.add.sprite(62, 900, 'blackdude');
     game.physics.enable(enemy, Phaser.Physics.ARCADE);
@@ -90,6 +91,7 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	
+
     // AI updates
     game.time.events.repeat(Phaser.Timer.HALF, 10, updateAI, this);	
 
@@ -97,43 +99,32 @@ function create() {
 
 function updateAI () {
 
+	//game.input.mousePointer.isDown && 
     if (!under_calc) {
 		under_calc = true;
+		//alert("pointer marker.x = " + enemy.x + " pointer marker.y = " + enemy.y);		
+		//alert("layer.getTileX(enemy.x) = " + layer.getTileX(enemy.x) + " layer.getTileY(marker.y) = " + layer.getTileY(enemy.y));		
+        //findPathTo(exit.x, exit.y);
 		findPathTo(layer.getTileX(enemy.x), layer.getTileY(enemy.y));
     }
 
 }
-
 function findPathTo(tilex, tiley) {
 
     pathfinder.setCallbackFunction(function(path) {
         path = path || [];
-		/*if (path) {
+		/*if (path==null) {
+			alert("Path was not found.");
+		} else {
 			alert("Path was found. The first Point is " + path[0].x + " " + path[0].y);
 		}*/
         for(var i = 0, ilen = path.length; i < ilen; i++) {
             map.putTile(46, path[i].x, path[i].y);
         }
-        
-        //logging.debug("value of my var is %s", str(path[i].x))
-        
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080",
-            data: path[0].x,
-            dataType: "json",
-            done: function() {
-                // Clear out the posted message...
-                $("#nickname").val('');
-            },
-            fail: function(e) {
-                confirm("Error", e.message);
-            }
-        });
-        
         under_calc = false;
     });
-	
+//enemy.position.x, enemy.position.y
+    //pathfinder.preparePathCalculation([0, 0], [30, 30]);
 	pathfinder.preparePathCalculation([layer.getTileX(exit.x),layer.getTileY(exit.x)], [tilex,tiley]);
     pathfinder.calculatePath();
 }
