@@ -29,14 +29,9 @@ var playerdoublejump = 0;
 var pathfinder;
 var under_calc = false;
 
-
-var marker;
-
-
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
-
     game.stage.backgroundColor = '#000000';
 
     //set-up map
@@ -67,7 +62,7 @@ function create() {
 
     //adding main char 'player'
     //player = game.add.sprite(32, 32, 'dude');
-	player = game.add.sprite(32, 900, 'dude');
+    player = game.add.sprite(32, 900, 'dude');
     game.physics.enable(player, Phaser.Physics.ARCADE);
 
     player.body.bounce.y = 0.2;
@@ -80,7 +75,7 @@ function create() {
 
     game.camera.follow(player);
 
-   //adding enemy char 'enemy'
+	//adding enemy char 'enemy'
     //enemy = game.add.sprite(62, 32, 'blackdude');
 	enemy = game.add.sprite(62, 900, 'blackdude');
     game.physics.enable(enemy, Phaser.Physics.ARCADE);
@@ -95,12 +90,17 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	
-	
-	
-    marker = game.add.graphics();
-    marker.lineStyle(2, 0x000000, 1);
-    marker.drawRect(0, 0, 32, 32);
-	
+    // AI updates
+    game.time.events.repeat(Phaser.Timer.HALF, 10, updateAI, this);	
+
+}
+
+function updateAI () {
+
+    if (!under_calc) {
+		under_calc = true;
+		findPathTo(layer.getTileX(enemy.x), layer.getTileY(enemy.y));
+    }
 
 }
 
@@ -108,18 +108,32 @@ function findPathTo(tilex, tiley) {
 
     pathfinder.setCallbackFunction(function(path) {
         path = path || [];
-		/*if (path==null) {
-			alert("Path was not found.");
-		} else {
+		/*if (path) {
 			alert("Path was found. The first Point is " + path[0].x + " " + path[0].y);
 		}*/
         for(var i = 0, ilen = path.length; i < ilen; i++) {
             map.putTile(46, path[i].x, path[i].y);
         }
-        //under_calc = false;
+        
+        //logging.debug("value of my var is %s", str(path[i].x))
+        
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080",
+            data: path[0].x,
+            dataType: "json",
+            done: function() {
+                // Clear out the posted message...
+                $("#nickname").val('');
+            },
+            fail: function(e) {
+                confirm("Error", e.message);
+            }
+        });
+        
+        under_calc = false;
     });
-//enemy.position.x, enemy.position.y
-    //pathfinder.preparePathCalculation([0, 0], [30, 30]);
+	
 	pathfinder.preparePathCalculation([layer.getTileX(exit.x),layer.getTileY(exit.x)], [tilex,tiley]);
     pathfinder.calculatePath();
 }
@@ -133,38 +147,31 @@ function update() {
 
     player.body.velocity.x = 0;
 
-    if (cursors.left.isDown)
-    {
+    if (cursors.left.isDown) {
         player.body.velocity.x = -150;
 
-        if (facing != 'left')
-        {
+        if (facing != 'left') {
             player.animations.play('left');
             facing = 'left';
         }
     }
-    else if (cursors.right.isDown)
-    {
+    else if (cursors.right.isDown) {
         player.body.velocity.x = 150;
 
-        if (facing != 'right')
-        {
+        if (facing != 'right') {
             player.animations.play('right');
             facing = 'right';
         }
     }
     else
     {
-        if (facing != 'idle')
-        {
+        if (facing != 'idle') {
             player.animations.stop();
 
-            if (facing == 'left')
-            {
+            if (facing == 'left') {
                 player.frame = 0;
             }
-            else
-            {
+            else {
                 player.frame = 5;
             }
 
@@ -172,8 +179,7 @@ function update() {
         }
     }
     
-    if (jumpButton.isDown && game.time.now > jumpTimer)
-    {
+    if (jumpButton.isDown && game.time.now > jumpTimer) {
 		if (player.body.onFloor() == 1 ) {
 			playerdoublejump = 0;
 				player.body.velocity.y = -250;
@@ -183,19 +189,6 @@ function update() {
 				jumpTimer = game.time.now + 500;
 			playerdoublejump++;
 		}
-    }
-
-	marker.x = layer.getTileX(game.input.activePointer.worldX) * 32;
-    marker.y = layer.getTileY(game.input.activePointer.worldY) * 32;
-
-	
-    if (game.input.mousePointer.isDown && !under_calc)
-    {
-		under_calc = true;
-		//alert("pointer marker.x = " + enemy.x + " pointer marker.y = " + enemy.y);		
-		//alert("layer.getTileX(enemy.x) = " + layer.getTileX(enemy.x) + " layer.getTileY(marker.y) = " + layer.getTileY(enemy.y));		
-        //findPathTo(exit.x, exit.y);
-		findPathTo(layer.getTileX(enemy.x), layer.getTileY(enemy.y));
     }
 
 
