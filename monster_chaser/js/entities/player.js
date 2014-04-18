@@ -5,7 +5,7 @@ function Player(game, spawn) {
 	
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
-    this.body.bounce.y = 0.1;
+    this.body.bounce.y = 0.2;
     this.body.collideWorldBounds = true;
     this.body.setSize(20, 32, 5, 16);
 
@@ -64,18 +64,12 @@ Player.prototype.update = function(){
     if (this.game.keys.SPACE.isDown && (this.game.time.now > this.jumpTimer)) {
 		if (this.body.onFloor() ) {
 			this.playerdoublejump = 0;
-			this.body.velocity.y = -300;
-			this.jumpTimer = this.game.time.now + 550;
+			this.body.velocity.y = -400;
+			this.jumpTimer = this.game.time.now + 650;
 		} else if (this.playerdoublejump == 0) {
-			this.body.velocity.y = -300;
-			this.jumpTimer = this.game.time.now + 500;			
+			this.body.velocity.y = -400;
+			this.jumpTimer = this.game.time.now + 600;			
 			this.playerdoublejump = 1;
 		}
     }
-}
-
-Player.prototype.render = function() {
-
-	this.game.debug.bodyInfo(this.player, 16, 24);
- 
 }

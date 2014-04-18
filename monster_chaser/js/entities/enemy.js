@@ -17,12 +17,15 @@ function Enemy(game, spawn) {
 	this.game.add.existing(this);
 	
 	// AI updates
-	this.game.time.events.repeat(Phaser.Timer.HALF, 10, this.updateAI, this);
+	//this.game.time.events.repeat(Phaser.Timer.HALF, 10, this.updateAI, this);
+	this.game.time.events.repeat(Phaser.Timer.SECOND * 2, 10, this.updatePath, this);
 	this.walkables = [0];
 	this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);	
 	this.pathfinder.setGrid(this.game.map.layers[0].data, this.walkables);
 	
 	this.under_calc = false;
+
+
 }
 
 Enemy.prototype = Object.create( Phaser.Sprite.prototype );
@@ -30,7 +33,6 @@ Enemy.prototype.constructor = Enemy;
 
 Enemy.prototype.update = function(){
 
-    //this.body.velocity.x = 0;
 
 };
 
@@ -62,5 +64,14 @@ Enemy.prototype.updateAI = function(){
 		this.findPathTo(1, 1);
 		//this.game.map.layers.getTileX(this.x), this.game.map.layers.getTileY(this.y)
     }
+
+}
+
+Enemy.prototype.updatePath = function(){
+	
+    //this.body.velocity.x = 0;
+	this.body.velocity.x = this.game.rnd.integerInRange(-800, 800);
+
+	this.body.velocity.y = this.game.rnd.integerInRange(-800, 800);
 
 }

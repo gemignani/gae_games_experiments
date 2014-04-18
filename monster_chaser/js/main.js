@@ -1,7 +1,7 @@
 var width = 800;
 var height = 600;
 
-var game = new Phaser.Game(width, height, Phaser.CANVAS, 'chaser');
+var game = new Phaser.Game(width, height, Phaser.AUTO, 'chaser');
 
 game.state.add('Boot', MainGame.BootState);
 game.state.add('Loader', MainGame.LoaderState);

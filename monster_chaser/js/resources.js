@@ -13,6 +13,7 @@ MainGame.resources.LoaderState = {
 	  	  {name: 'tiles-1', path: 'assets/images/tiles-1.png'}
 	  	, {name: 'background', path: 'assets/images/background2.png'}
 	  	, {name: 'door', path: 'assets/images/door.png'}
+	  	, {name: 'portal', path: 'assets/images/portal.png'}
 	  	
 
 	]
@@ -23,7 +24,7 @@ MainGame.resources.LoaderState = {
 
 	]
 	, tilemaps: [
-		  {name: 'level0', path: 'assets/tilemaps/level1.json'}
+		  {name: 'level1', path: 'assets/tilemaps/level1.json'}
 	]
 	, audio: [
 

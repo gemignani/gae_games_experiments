@@ -6,6 +6,7 @@ function CollisionManager(game){
 		  players: []
 		, layers: []
 		, enemies: []
+		, portals: []
 	};
 }
 
@@ -62,5 +63,19 @@ CollisionManager.prototype.update = function(){
 		}
 	}
 	
+	//PLAYER VS PORTAL
+	for( var i = 0; i < this.groups.players.length; i++ ){
+		var player = this.groups.players[i];
+		for( var k = 0; k < this.groups.portals.length; k++ ){
+			var portal = this.groups.portals[k];
+			this.game.physics.arcade.collide(player, portal, collisionHandler);
+			//alert ('ok');
+		}
+	}
 
 };
+
+function collisionHandler (obj1, obj2) {
+    game.stage.backgroundColor = '#992d2d';
+    alert ('ok');
+}
