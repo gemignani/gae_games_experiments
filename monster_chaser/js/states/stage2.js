@@ -1,9 +1,9 @@
 
-MainGame.GameState = function(game){
+MainGame.Stage2State = function(game){
 	
 };
 
-MainGame.GameState.prototype = {
+MainGame.Stage2State.prototype = {
 	
 	create: function(){
 
@@ -46,9 +46,11 @@ MainGame.GameState.prototype = {
 		//adding entities
 		this.game.player = new Player(this.game, {x:32, y:900}); //62, 32 for tile1		
 		this.game.enemy = new Enemy(this.game, {x:62, y:900}, this.game.player);
-		this.game.portal = new Portal(this.game, {x:20, y:920});		
+		this.game.portal = new Portal(this.game, {x:150, y:920});			
 		
-		GUIManager.setup();		
+		GUIManager.setup( function(){ 
+			this.game.state.start('GameOver'); 
+		});		
 	
  		this.shadowTexture = this.game.add.bitmapData(this.game.width * 2, this.game.height * 2);
 		var lightSprite = this.game.add.image(0, 0, this.shadowTexture);

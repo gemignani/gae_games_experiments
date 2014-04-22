@@ -11,7 +11,7 @@ MainGame.MainMenuState.prototype = {
 
 		//this.add.sprite(0, 0, 'background');
 		var start_btn = new Phaser.Button(this.game, this.game.width / 2, this.game.height / 2, 'door', function(){
-			this.game.state.start('Game');
+			this.game.state.start('Stage1');
 		}, this, 1, 0, 0);
 
 		start_btn.anchor.setTo(0.5, 0.5);

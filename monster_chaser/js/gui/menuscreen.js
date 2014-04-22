@@ -4,11 +4,10 @@ function MenuScreen(game){
 	this.game = game;
 	Phaser.Group.call(this, this.game, null, "menuScreen");
 
-
 	this.offsetX = 10;
 	this.offsetY = 10;
 	this.fixedToCamera = true;
-	this.teste = this.game.add.text(50, 50, "Stage Completed!", { font: "18px monospace", fill: '#ffffff'}, this);
+	this.teste = this.game.add.text(0, 50, "Stage Not Completed!", { font: "18px monospace", fill: '#ffffff'}, this);
 
 	this.game.add.existing(this);
 
@@ -18,8 +17,17 @@ function MenuScreen(game){
 MenuScreen.prototype = Object.create(Phaser.Group.prototype);
 MenuScreen.prototype.constructor = MenuScreen;
 
+MenuScreen.prototype.setAdvanceCallback = function(callback){
+	this.advance_stage = callback;
+}
+
+MenuScreen.prototype.runAdvanceCallback = function(){
+	this.teste.setText("Stage Completed!");
+	this.advance_stage();
+}
 
 MenuScreen.prototype.update = function(){
+
 
 /*
 	this.waveTimeText.setText("Time: " + Math.floor(WaveManager.waveLength / 1000) + " seconds");

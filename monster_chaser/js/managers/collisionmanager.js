@@ -76,7 +76,6 @@ CollisionManager.prototype.update = function(){
 
 function collisionHandler (obj1, obj2) {
     game.stage.backgroundColor = '#992d2d';
-
-    GUIManager.activateMenu();
+    GUIManager.advanceStage();
 
 }
