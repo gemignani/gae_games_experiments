@@ -1,12 +1,13 @@
-function Enemy(game, spawn) {
+function Enemy(game, spawn, target) {
 	
 	this.game = game;
 	Phaser.Sprite.call(this, this.game, spawn.x, spawn.y, 'blackdude');
 	
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
+	this.target = target;
 
-    this.body.bounce.y = 0.2;
-    this.body.collideWorldBounds = true;
+    //this.body.bounce.y = 0.2;
+    //this.body.collideWorldBounds = true;
     this.body.setSize(20, 32, 5, 16);
 
     this.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -16,14 +17,17 @@ function Enemy(game, spawn) {
     CollisionManager.addObjectToGroup(this, 'enemies');
 	this.game.add.existing(this);
 	
+	this.MAX_SPEED = 250; // pixels/second
+    this.MIN_DISTANCE = 32; // pixels
+
 	// AI updates
 	//this.game.time.events.repeat(Phaser.Timer.HALF, 10, this.updateAI, this);
-	this.game.time.events.repeat(Phaser.Timer.SECOND * 2, 10, this.updatePath, this);
-	this.walkables = [0];
-	this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);	
-	this.pathfinder.setGrid(this.game.map.layers[0].data, this.walkables);
+	//this.game.time.events.repeat(Phaser.Timer.SECOND * 2, 10, this.updatePath, this);
+	//this.walkables = [0];
+	//this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);	
+	//this.pathfinder.setGrid(this.game.map.layers[0].data, this.walkables);
 	
-	this.under_calc = false;
+	//this.under_calc = false;
 
 
 }
@@ -33,9 +37,20 @@ Enemy.prototype.constructor = Enemy;
 
 Enemy.prototype.update = function(){
 
+	var distance = this.game.math.distance(this.x, this.y, this.target.x, this.target.y);
+	if (distance > this.MIN_DISTANCE) {
+        // Calculate the angle to the target
+        var rotation = this.game.math.angleBetween(this.x, this.y, this.target.x, this.target.y);
+
+        // Calculate velocity vector based on rotation and this.MAX_SPEED
+        this.body.velocity.x = Math.cos(rotation) * this.MAX_SPEED;
+        this.body.velocity.y = Math.sin(rotation) * this.MAX_SPEED;
+    } else {
+        this.body.velocity.setTo(0, 0);
+    }
 
 };
-
+/*
 Enemy.prototype.findPathTo = function(tilex, tiley){
 
     this.pathfinder.setCallbackFunction(function(path) {
@@ -70,8 +85,8 @@ Enemy.prototype.updateAI = function(){
 Enemy.prototype.updatePath = function(){
 	
     //this.body.velocity.x = 0;
-	this.body.velocity.x = this.game.rnd.integerInRange(-800, 800);
-
-	this.body.velocity.y = this.game.rnd.integerInRange(-800, 800);
+	//this.body.velocity.x = this.game.rnd.integerInRange(-800, 800);
+	//this.body.velocity.y = this.game.rnd.integerInRange(-800, 800);
 
 }
+*/

@@ -69,7 +69,6 @@ CollisionManager.prototype.update = function(){
 		for( var k = 0; k < this.groups.portals.length; k++ ){
 			var portal = this.groups.portals[k];
 			this.game.physics.arcade.collide(player, portal, collisionHandler);
-			//alert ('ok');
 		}
 	}
 
@@ -77,5 +76,6 @@ CollisionManager.prototype.update = function(){
 
 function collisionHandler (obj1, obj2) {
     game.stage.backgroundColor = '#992d2d';
-    alert ('ok');
+    alert ('Game OVer!');
+    //this.hud.activateMenu();
 }

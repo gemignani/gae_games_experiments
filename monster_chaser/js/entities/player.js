@@ -9,6 +9,20 @@ function Player(game, spawn) {
     this.body.collideWorldBounds = true;
     this.body.setSize(20, 32, 5, 16);
 
+	
+	this.MAX_SPEED = 250; // pixels/second
+    this.ACCELERATION = 600; // pixels/second/second
+    this.DRAG = 400; // pixels/second
+    this.JUMP_SPEED = -400; // pixels/second (negative y is up)
+	this.jumpTimer = this.game.time.now;
+    this.playerdoublejump = true;
+    this.facing = 'left'; // animation helper
+
+    this.body.gravity.y = 400;
+
+	this.body.drag.setTo(this.DRAG, 0); // x, y
+	this.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10); // x, y
+	
     this.animations.add('left', [0, 1, 2, 3], 10, true);
     this.animations.add('turn', [4], 20, true);
     this.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -16,10 +30,6 @@ function Player(game, spawn) {
     this.game.camera.follow(this);
 	CollisionManager.addObjectToGroup(this, 'players');
 	this.game.add.existing(this);
-	
-	this.facing = 'left';
-	this.jumpTimer = this.game.time.now;
-	this.playerdoublejump = 0;
 	
 }
 
@@ -31,7 +41,7 @@ Player.prototype.update = function(){
     this.body.velocity.x = 0;
 
     if (this.game.keys.LEFT.isDown) {
-        this.body.velocity.x = -150;
+        this.body.velocity.x = -this.ACCELERATION;
 
         if (this.facing != 'left') {
             this.animations.play('left');
@@ -39,7 +49,7 @@ Player.prototype.update = function(){
         }
     }
     else if (this.game.keys.RIGHT.isDown) {
-        this.body.velocity.x = 150;
+        this.body.velocity.x = this.ACCELERATION;
 
         if (this.facing != 'right') {
             this.animations.play('right');
@@ -61,14 +71,15 @@ Player.prototype.update = function(){
             this.facing = 'idle';
         }
     }
+
     if (this.game.keys.SPACE.isDown && (this.game.time.now > this.jumpTimer)) {
-		if (this.body.onFloor() ) {
+		if (this.body.onFloor()) {
 			this.playerdoublejump = 0;
-			this.body.velocity.y = -400;
-			this.jumpTimer = this.game.time.now + 650;
+			this.body.velocity.y = this.JUMP_SPEED;
+			this.jumpTimer = this.game.time.now + 350;
 		} else if (this.playerdoublejump == 0) {
-			this.body.velocity.y = -400;
-			this.jumpTimer = this.game.time.now + 600;			
+			this.body.velocity.y = this.JUMP_SPEED;
+			this.jumpTimer = this.game.time.now + 300;			
 			this.playerdoublejump = 1;
 		}
     }

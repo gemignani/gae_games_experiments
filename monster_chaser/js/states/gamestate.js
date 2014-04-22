@@ -11,9 +11,10 @@ MainGame.GameState.prototype = {
 		this.game.stage.backgroundColor = '#000000';
 
 		//set-up map
-		this.bg = this.game.add.tileSprite(0, 0, 800, 600, 'background');
+		this.bg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
 		this.bg.fixedToCamera = true;
-		
+		this.LIGHT_RADIUS = 100;
+
 		//tile-map
 		this.game.map = this.game.add.tilemap('level1');
 		this.game.map.addTilesetImage('tiles-1');
@@ -21,8 +22,13 @@ MainGame.GameState.prototype = {
 		
 		this.game.layer = this.game.map.createLayer('Tile Layer 1');
 		
-		//Un-comment this on to see the collision tiles
-		//this.game.layer.debug = true;
+		// Debug stuff
+		/*
+		this.game.layer.debug = true;
+		this.game.time.advancedTiming = true;
+		this.fpsText = this.game.add.text(
+			20, 20, '', { font: '16px Arial', fill: '#ffffff' }
+		); */
 		CollisionManager.addObjectToGroup(this.game.layer, 'layers');
 		this.game.layer.resizeWorld();
 		
@@ -31,20 +37,39 @@ MainGame.GameState.prototype = {
 		
 		//adding entities
 		this.game.player = new Player(this.game, {x:32, y:900}); //62, 32 for tile1		
-		this.game.enemy = new Enemy(this.game, {x:62, y:900});		//game.world.randomX
+		this.game.enemy = new Enemy(this.game, {x:62, y:900}, this.game.player);		//game.world.randomX
 		this.game.portal = new Portal(this.game, {x:20, y:20});		
-		//this.exit = game.add.sprite(500, 500, 'door');
 		
-		//GUIManager.setup();
-
+		GUIManager.setup();		
+	
+ 		this.shadowTexture = this.game.add.bitmapData(this.game.width * 2, this.game.height * 2);
+		var lightSprite = this.game.add.image(0, 0, this.shadowTexture);
+ 		lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
+	
+		this.game.input.activePointer.x = this.game.width/2;
+    	this.game.input.activePointer.y = this.game.height/2;
 	},
 
 	update: function(){
 
+		//  if (this.game.time.fps !== 0) {
+        //this.fpsText.setText(this.game.time.fps + ' FPS');
+		//	}
 		//InputManager.update();
 		CollisionManager.update();
 		//GUIManager.update();
 		//WaveManager.update();
+
+	    this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
+    	this.shadowTexture.context.fillRect(0, 0, this.game.width * 2, this.game.height * 2);
+		this.shadowTexture.context.beginPath();    	
+		this.shadowTexture.context.fillStyle = 'rgb(255, 255, 255)';
+    	
+    	this.shadowTexture.context.arc(this.game.player.x, this.game.player.y, this.LIGHT_RADIUS, 0, Math.PI*2);
+    	this.shadowTexture.context.fill();
+    	this.shadowTexture.dirty = true;
+
+		//this.updateShadowTexture();
 		
 	},
 
@@ -52,8 +77,10 @@ MainGame.GameState.prototype = {
 		
 		//debug stuff
 		 //this.game.debug.text(this.game.time.physicsElapsed, 32, 700);
-		 this.game.debug.body(this.game.player);
-		 this.game.debug.bodyInfo(this.game.player, 0, 30);
+		 //this.game.debug.body(this.game.player);
+		 //this.game.debug.bodyInfo(this.game.player, 0, 30);
 		 
 	}
+
+
 };

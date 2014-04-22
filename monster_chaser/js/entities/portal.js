@@ -1,7 +1,7 @@
 function Portal(game, spawn) {
 	
 	this.game = game;
-	Phaser.Sprite.call(this, this.game, spawn.x, spawn.y, 'portal');
+	Phaser.Sprite.call(this, this.game, spawn.x, spawn.y, 'door');
 	
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
@@ -17,7 +17,7 @@ function Portal(game, spawn) {
 }
 
 Portal.prototype = Object.create( Phaser.Sprite.prototype );
-Portal.prototype.constructor = Enemy;
+Portal.prototype.constructor = Portal;
 
 Portal.prototype.update = function(){
 

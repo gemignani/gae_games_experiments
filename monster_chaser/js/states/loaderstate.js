@@ -46,8 +46,8 @@ MainGame.LoaderState.prototype = {
 	update: function(){
 
 		if(Date.now() > this._continue){
-			this.game.state.start('Game');
-			//this.game.state.start('MainMenu');
+			//this.game.state.start('Game');
+			this.game.state.start('MainMenu');
 		}
 	}
 };
