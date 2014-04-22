@@ -14,10 +14,10 @@ function Enemy(game, spawn, target) {
     this.animations.add('turn', [4], 20, true);
     this.animations.add('right', [5, 6, 7, 8], 10, true);
 
-    CollisionManager.addObjectToGroup(this, 'enemies');
+    //CollisionManager.addObjectToGroup(this, 'enemies');
 	this.game.add.existing(this);
 	
-	this.MAX_SPEED = 250; // pixels/second
+	this.MAX_SPEED = 350; // pixels/second
     this.MIN_DISTANCE = 32; // pixels
 
 	// AI updates

@@ -3,7 +3,7 @@
 <head> 
 	<meta charset="UTF-8" />
 	<title>Phaser Catcher</title>
-	
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 	<style type="text/css">
         body {
             margin: 0;
@@ -15,8 +15,10 @@
 	
 	<!-- LIBRARIES -->
 	<script src="js/lib/phaser.js"></script>
+	<!-- 
 	<script src="js/lib/PathFinderPlugin.js"></script>
 	<script src="js/lib/easystar-0.1.5.js"></script>
+	-->
 	
 	<!-- ENTITIES -->
 	<script src="js/entities/enemy.js"></script>
@@ -44,5 +46,16 @@
 	<script src="js/resources.js"></script>
 	<script src="js/main.js"></script>
 	
+	<!--
+	<script>
+	window.addEventListener('resize', function(event){
+    	resizeGame();
+	});
+	var resizeGame = function () {
+	    game.stage.scale.setShowAll();
+	    game.stage.scale.refresh();
+	} 
+	-->
+</script>
 </body>
 </html>

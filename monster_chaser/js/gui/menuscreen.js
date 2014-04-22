@@ -4,26 +4,14 @@ function MenuScreen(game){
 	this.game = game;
 	Phaser.Group.call(this, this.game, null, "menuScreen");
 
-		/*
-	//this.nextWave = WaveManager.currentWave;
-	//this.availablePoints = InventoryManager.points;
 
-	//overlay
-	this.overlay = this.create(0, 0, 'overlay');
-	//this.overlay.anchor.setTo(0.5, 0.5);
-	this.overlay.fixedToScreen = true;
-	
-	this.waveCompleteText = this.game.add.text(50, 150, "Wave Complete!", { font: "48px monospace", fill: '#ffffff'}, this);
-	this.waveTimeText = this.game.add.text(50, 220, "Time: 0", { font: "24px monospace", fill: '#ffffff'}, this);
-	//this.enemiesKillText = this.game.add.text(50, 260, "Enemies Killed: 0", { font: "24px monospace", fill: '#ffffff'}, this);
-	this.accuracyText = this.game.add.text(50, 270, "Accuracy: 0", { font: "24px monospace", fill: '#ffffff'}, this);
+	this.offsetX = 10;
+	this.offsetY = 10;
+	this.fixedToCamera = true;
+	this.teste = this.game.add.text(50, 50, "Stage Completed!", { font: "18px monospace", fill: '#ffffff'}, this);
 
+	this.game.add.existing(this);
 
-	this.pointsText = this.game.add.text(640, 80, "Points Available: " + this.availablePoints, { font: "22px monospace", fill: '#ffffff'}, this);
-	//
-	//this.ready_btn = this.create(645, 640, 'ready_btn');
-	this.ready_btn = new Phaser.Button(this.game, 645, 640, 'ready_btn', this.readyWave, this, 1, 0, 0);
-	this.add(this.ready_btn);*/
 
 }
 

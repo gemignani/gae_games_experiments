@@ -8,7 +8,15 @@ MainGame.GameState.prototype = {
 	create: function(){
 
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-		this.game.stage.backgroundColor = '#000000';
+		//this.game.stage.backgroundColor = '#000000';
+
+		// resolution scale change
+		//game.stage.fullScreenScaleMode = Phaser.StageScaleMode.SHOW_ALL;
+		//this.game.scale.maxWidth = this.game.width;
+    	//this.game.scale.maxHeight = this.game.height;
+		//this.game.scale.setShowAll();
+		//this.game.scale.refresh();
+
 
 		//set-up map
 		this.bg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
@@ -37,8 +45,8 @@ MainGame.GameState.prototype = {
 		
 		//adding entities
 		this.game.player = new Player(this.game, {x:32, y:900}); //62, 32 for tile1		
-		this.game.enemy = new Enemy(this.game, {x:62, y:900}, this.game.player);		//game.world.randomX
-		this.game.portal = new Portal(this.game, {x:20, y:20});		
+		this.game.enemy = new Enemy(this.game, {x:62, y:900}, this.game.player);
+		this.game.portal = new Portal(this.game, {x:20, y:920});		
 		
 		GUIManager.setup();		
 	
@@ -57,20 +65,18 @@ MainGame.GameState.prototype = {
 		//	}
 		//InputManager.update();
 		CollisionManager.update();
-		//GUIManager.update();
-		//WaveManager.update();
-
-	    this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
+		GUIManager.update();
+		
+	    /*this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
     	this.shadowTexture.context.fillRect(0, 0, this.game.width * 2, this.game.height * 2);
 		this.shadowTexture.context.beginPath();    	
 		this.shadowTexture.context.fillStyle = 'rgb(255, 255, 255)';
     	
     	this.shadowTexture.context.arc(this.game.player.x, this.game.player.y, this.LIGHT_RADIUS, 0, Math.PI*2);
     	this.shadowTexture.context.fill();
-    	this.shadowTexture.dirty = true;
+    	this.shadowTexture.dirty = true;*/
 
-		//this.updateShadowTexture();
-		
+	
 	},
 
 	render: function(){
@@ -78,7 +84,8 @@ MainGame.GameState.prototype = {
 		//debug stuff
 		 //this.game.debug.text(this.game.time.physicsElapsed, 32, 700);
 		 //this.game.debug.body(this.game.player);
-		 //this.game.debug.bodyInfo(this.game.player, 0, 30);
+		 //this.game.debug.body(this.game.enemy);
+		 //this.game.debug.bodyInfo(this.game.enemy, 0, 30);
 		 
 	}
 
