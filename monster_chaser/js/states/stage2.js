@@ -44,9 +44,10 @@ MainGame.Stage2State.prototype = {
 		this.game.physics.arcade.gravity.y = 550;	
 		
 		//adding entities
-		this.game.player = new Player(this.game, {x:32, y:900}); //62, 32 for tile1		
-		this.game.enemy = new Enemy(this.game, {x:62, y:900}, this.game.player);
-		this.game.portal = new Portal(this.game, {x:150, y:920});			
+		this.game.player = new Player(this.game, {x:62, y:32}); //62, 32 for tile1		
+		this.game.enemy = new Enemy(this.game, {x:62, y:900});
+		this.game.enemy.setTarget(this.game.player);
+		this.game.portal = new Portal(this.game, {x:90, y:92});			
 		
 		GUIManager.setup( function(){ 
 			this.game.state.start('GameOver'); 
@@ -62,10 +63,6 @@ MainGame.Stage2State.prototype = {
 
 	update: function(){
 
-		//  if (this.game.time.fps !== 0) {
-        //this.fpsText.setText(this.game.time.fps + ' FPS');
-		//	}
-		//InputManager.update();
 		CollisionManager.update();
 		GUIManager.update();
 		

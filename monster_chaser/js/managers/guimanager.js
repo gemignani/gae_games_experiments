@@ -17,14 +17,14 @@ GUIManager.prototype.setup = function(advance_stage){
 	//this.game.scale.maxHeight = this.game.height;
 	//this.game.scale.setShowAll();
 	//this.game.scale.refresh();
-		
+
 	// Debug stuff
-	/*
+	
 	this.game.layer.debug = true;
 	this.game.time.advancedTiming = true;
 	this.fpsText = this.game.add.text(
 		20, 20, '', { font: '16px Arial', fill: '#ffffff' }
-	); */
+	); 
 }
 
 GUIManager.prototype.update = function(){
@@ -34,9 +34,9 @@ GUIManager.prototype.update = function(){
 		this.menuScreen.update();	
 	}
 
-	//  if (this.game.time.fps !== 0) {
-    //this.fpsText.setText(this.game.time.fps + ' FPS');
-	//	}	
+	if (this.game.time.fps !== 0) {
+    	this.fpsText.setText(this.game.time.fps + ' FPS');
+	}	
 	
 }
 

@@ -17,8 +17,7 @@ HUD.prototype.constructor = HUD;
 HUD.prototype.update = function(){
 
 	//get player health
-	//var pH = Math.floor(( this.game.player.health / this.game.player.maxHealth ) * 100);
-	var pH = 100;
+	var pH = Math.floor(( this.game.player.health / this.game.player.maxHealth ) * 100);
 	this.playerHealth.setText("Health: " + pH + "%");
 	
 }

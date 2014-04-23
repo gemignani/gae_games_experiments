@@ -30,7 +30,8 @@ MainGame.Stage1State.prototype = {
 		
 		//adding entities
 		this.game.player = new Player(this.game, {x:32, y:900}); //62, 32 for tile1		
-		this.game.enemy = new Enemy(this.game, {x:62, y:900}, this.game.player);
+		this.game.enemy = new Enemy(this.game, {x:62, y:900});
+		this.game.enemy.setTarget(this.game.player);
 		this.game.portal = new Portal(this.game, {x:150, y:920});		
 		
 		GUIManager.setup( function(){ 
@@ -47,14 +48,14 @@ MainGame.Stage1State.prototype = {
 
 	update: function(){
 
-	    this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
+	    /*this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
     	this.shadowTexture.context.fillRect(0, 0, this.game.width * 2, this.game.height * 2);
 		this.shadowTexture.context.beginPath();    	
 		this.shadowTexture.context.fillStyle = 'rgb(255, 255, 255)';
     	
     	this.shadowTexture.context.arc(this.game.player.x, this.game.player.y, this.LIGHT_RADIUS, 0, Math.PI*2);
     	this.shadowTexture.context.fill();
-    	this.shadowTexture.dirty = true;
+    	this.shadowTexture.dirty = true;*/
 
 		//InputManager.update();
 		GUIManager.update();

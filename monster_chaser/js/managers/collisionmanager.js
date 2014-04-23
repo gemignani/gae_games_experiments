@@ -50,7 +50,7 @@ CollisionManager.prototype.update = function(){
 		var player = this.groups.players[i];
 		for( var k = 0; k < this.groups.enemies.length; k++ ){
 			var enemies = this.groups.enemies[k];
-			this.game.physics.arcade.collide(player, enemies);
+			this.game.physics.arcade.collide(player, enemies, ghostHandler);
 		}
 	}
 	
@@ -68,13 +68,18 @@ CollisionManager.prototype.update = function(){
 		var player = this.groups.players[i];
 		for( var k = 0; k < this.groups.portals.length; k++ ){
 			var portal = this.groups.portals[k];
-			this.game.physics.arcade.collide(player, portal, collisionHandler);
+			this.game.physics.arcade.collide(player, portal, portal_collisionHandler);
 		}
 	}
 
 };
 
-function collisionHandler (obj1, obj2) {
+function ghostHandler (obj1, obj2) {
+    this.game.player.health -=5 ;
+
+}
+
+function portal_collisionHandler (obj1, obj2) {
     game.stage.backgroundColor = '#992d2d';
     GUIManager.advanceStage();
 

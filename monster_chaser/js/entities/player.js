@@ -8,7 +8,6 @@ function Player(game, spawn) {
     this.body.bounce.y = 0.2;
     this.body.collideWorldBounds = true;
     this.body.setSize(20, 32, 5, 16);
-
 	
 	this.MAX_SPEED = 250; // pixels/second
     this.ACCELERATION = 600; // pixels/second/second
@@ -18,6 +17,8 @@ function Player(game, spawn) {
     this.playerdoublejump = true;
     this.facing = 'left'; // animation helper
 
+    this.health = 100;
+    this.maxHealth = 100;
     this.body.gravity.y = 400;
 
 	this.body.drag.setTo(this.DRAG, 0); // x, y
@@ -76,11 +77,11 @@ Player.prototype.update = function(){
 		if (this.body.onFloor()) {
 			this.playerdoublejump = 0;
 			this.body.velocity.y = this.JUMP_SPEED;
-			this.jumpTimer = this.game.time.now + 350;
-		} else if (this.playerdoublejump == 0) {
+			this.jumpTimer = this.game.time.now + 650;
+		}/* else if (this.playerdoublejump == 0) {
 			this.body.velocity.y = this.JUMP_SPEED;
-			this.jumpTimer = this.game.time.now + 300;			
+			this.jumpTimer = this.game.time.now + 600;			
 			this.playerdoublejump = 1;
-		}
+		}*/
     }
 }

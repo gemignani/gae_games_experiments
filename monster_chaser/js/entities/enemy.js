@@ -1,15 +1,14 @@
-function Enemy(game, spawn, target) {
+function Enemy(game, spawn) {
 	
 	this.game = game;
 	Phaser.Sprite.call(this, this.game, spawn.x, spawn.y, 'blackdude');
 	
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
-	this.target = target;
 
-    //this.body.bounce.y = 0.2;
-    //this.body.collideWorldBounds = true;
+    this.body.bounce.setTo(1,1);
+    this.body.collideWorldBounds = true;
     this.body.setSize(20, 32, 5, 16);
-
+	athis.body.allowGravity = false;
     this.animations.add('left', [0, 1, 2, 3], 10, true);
     this.animations.add('turn', [4], 20, true);
     this.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -35,19 +34,13 @@ function Enemy(game, spawn, target) {
 Enemy.prototype = Object.create( Phaser.Sprite.prototype );
 Enemy.prototype.constructor = Enemy;
 
+Enemy.prototype.setTarget = function(target){
+	this.alvo = target;
+}
 Enemy.prototype.update = function(){
 
-	var distance = this.game.math.distance(this.x, this.y, this.target.x, this.target.y);
-	if (distance > this.MIN_DISTANCE) {
-        // Calculate the angle to the target
-        var rotation = this.game.math.angleBetween(this.x, this.y, this.target.x, this.target.y);
-
-        // Calculate velocity vector based on rotation and this.MAX_SPEED
-        this.body.velocity.x = Math.cos(rotation) * this.MAX_SPEED;
-        this.body.velocity.y = Math.sin(rotation) * this.MAX_SPEED;
-    } else {
-        this.body.velocity.setTo(0, 0);
-    }
+	//game.physics.arcade.moveToObject(this, this.alvo, 60, 800);
+	game.physics.arcade.accelerateToObject(this, this.alvo, 60, 800);
 
 };
 /*
