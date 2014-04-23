@@ -20,11 +20,11 @@ GUIManager.prototype.setup = function(advance_stage){
 
 	// Debug stuff
 	
-	this.game.layer.debug = true;
+	/*this.game.layer.debug = true;
 	this.game.time.advancedTiming = true;
 	this.fpsText = this.game.add.text(
 		20, 20, '', { font: '16px Arial', fill: '#ffffff' }
-	); 
+	);*/ 
 }
 
 GUIManager.prototype.update = function(){

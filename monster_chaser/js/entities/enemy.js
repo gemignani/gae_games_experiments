@@ -5,15 +5,16 @@ function Enemy(game, spawn) {
 	
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
-    this.body.bounce.setTo(1,1);
-    this.body.collideWorldBounds = true;
+    this.body.bounce.setTo(3,3);
+    //this.body.collideWorldBounds = true;
     this.body.setSize(20, 32, 5, 16);
-	athis.body.allowGravity = false;
+	this.body.allowGravity = false;
     this.animations.add('left', [0, 1, 2, 3], 10, true);
     this.animations.add('turn', [4], 20, true);
     this.animations.add('right', [5, 6, 7, 8], 10, true);
+	
 
-    //CollisionManager.addObjectToGroup(this, 'enemies');
+    CollisionManager.addObjectToGroup(this, 'enemies');
 	this.game.add.existing(this);
 	
 	this.MAX_SPEED = 350; // pixels/second
@@ -39,8 +40,19 @@ Enemy.prototype.setTarget = function(target){
 }
 Enemy.prototype.update = function(){
 
-	//game.physics.arcade.moveToObject(this, this.alvo, 60, 800);
-	game.physics.arcade.accelerateToObject(this, this.alvo, 60, 800);
+	var tmprotation = this.game.physics.arcade.moveToObject(this, this.alvo, 40, 4000);
+	
+	//game.physics.arcade.accelerateToObject(this, this.alvo, 60, 800);
+
+    /*if (this.game.physics.arcade.distanceBetween(this.tank, this.player) < 300){
+        if (this.game.time.now > this.nextFire && this.bullets.countDead() > 0){
+            this.nextFire = this.game.time.now + this.fireRate;
+            var bullet = this.bullets.getFirstDead();
+            bullet.reset(this.turret.x, this.turret.y);
+            bullet.rotation = this.game.physics.arcade.moveToObject(bullet, this.player, 500);
+        }
+    }*/
+
 
 };
 /*

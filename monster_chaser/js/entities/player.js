@@ -77,11 +77,11 @@ Player.prototype.update = function(){
 		if (this.body.onFloor()) {
 			this.playerdoublejump = 0;
 			this.body.velocity.y = this.JUMP_SPEED;
-			this.jumpTimer = this.game.time.now + 650;
-		}/* else if (this.playerdoublejump == 0) {
+			this.jumpTimer = this.game.time.now + 450;
+		} else if (this.playerdoublejump == 0) {
 			this.body.velocity.y = this.JUMP_SPEED;
-			this.jumpTimer = this.game.time.now + 600;			
+			this.jumpTimer = this.game.time.now + 400;			
 			this.playerdoublejump = 1;
-		}*/
+		}
     }
 }

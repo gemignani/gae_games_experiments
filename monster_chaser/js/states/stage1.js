@@ -19,9 +19,8 @@ MainGame.Stage1State.prototype = {
 		this.game.map = this.game.add.tilemap('level1');
 		this.game.map.addTilesetImage('tiles-1');
 		this.game.map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
-		
 		this.game.layer = this.game.map.createLayer('Tile Layer 1');
-		
+
 		CollisionManager.addObjectToGroup(this.game.layer, 'layers');
 		this.game.layer.resizeWorld();
 		
@@ -29,38 +28,44 @@ MainGame.Stage1State.prototype = {
 		this.game.physics.arcade.gravity.y = 550;	
 		
 		//adding entities
-		this.game.player = new Player(this.game, {x:32, y:900}); //62, 32 for tile1		
-		this.game.enemy = new Enemy(this.game, {x:62, y:900});
-		this.game.enemy.setTarget(this.game.player);
-		this.game.portal = new Portal(this.game, {x:150, y:920});		
+		
+		this.game.time.events.repeat(Phaser.Timer.SECOND * 5, 10,  function(){
+			var rWidth=game.rnd.integerInRange(0, this.game.width); 
+			var rHeight=game.rnd.integerInRange(0, this.game.height); 
+			var enemy = new Enemy(this.game, {x:rWidth, y:rHeight});
+			enemy.setTarget(this.game.player);
+			}
+		, this);
+
+		this.game.portal = new Portal(this.game, {x:850, y:920});		
+
+		//dark effect
+ 		this.shadowTexture = this.game.add.bitmapData(this.game.width * 2, this.game.height * 2);
+		var lightSprite = this.game.add.image(0, 0, this.shadowTexture);
+ 		lightSprite.blendMode = Phaser.blendModes.MULTIPLY;		
+
+		this.game.player = new Player(this.game, {x:32, y:900}); //62, 32 for tile1			
+		
 		
 		GUIManager.setup( function(){ 
 			this.game.state.start('Stage2'); 
 		});
 
- 		this.shadowTexture = this.game.add.bitmapData(this.game.width * 2, this.game.height * 2);
-		var lightSprite = this.game.add.image(0, 0, this.shadowTexture);
- 		lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
-
-	
-
 	},
 
 	update: function(){
 
-	    /*this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
+	    this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
     	this.shadowTexture.context.fillRect(0, 0, this.game.width * 2, this.game.height * 2);
 		this.shadowTexture.context.beginPath();    	
 		this.shadowTexture.context.fillStyle = 'rgb(255, 255, 255)';
     	
     	this.shadowTexture.context.arc(this.game.player.x, this.game.player.y, this.LIGHT_RADIUS, 0, Math.PI*2);
     	this.shadowTexture.context.fill();
-    	this.shadowTexture.dirty = true;*/
+    	this.shadowTexture.dirty = true;
 
-		//InputManager.update();
+		CollisionManager.update();
 		GUIManager.update();
-
-    	CollisionManager.update();
 		
 	
 	},
@@ -76,4 +81,6 @@ MainGame.Stage1State.prototype = {
 	}
 
 
-};
+}
+
+;

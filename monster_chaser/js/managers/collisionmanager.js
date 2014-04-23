@@ -55,13 +55,13 @@ CollisionManager.prototype.update = function(){
 	}
 	
 	//ENEMY VS LAYER
-	for( var i = 0; i < this.groups.enemies.length; i++ ){
+	/*for( var i = 0; i < this.groups.enemies.length; i++ ){
 		var enemies = this.groups.enemies[i];
 		for( var k = 0; k < this.groups.layers.length; k++ ){
 			var layer = this.groups.layers[k];
 			this.game.physics.arcade.collide(enemies, layer);
 		}
-	}
+	}*/
 	
 	//PLAYER VS PORTAL
 	for( var i = 0; i < this.groups.players.length; i++ ){
@@ -75,8 +75,14 @@ CollisionManager.prototype.update = function(){
 };
 
 function ghostHandler (obj1, obj2) {
-    this.game.player.health -=5 ;
-
+	obj2.kill();
+    if (obj1.health > 20) obj1.health -=20 ;
+    else {
+    	obj1.health = 0 ;
+    	obj1.kill();
+    	GUIManager.advanceStage();
+    }
+    
 }
 
 function portal_collisionHandler (obj1, obj2) {
