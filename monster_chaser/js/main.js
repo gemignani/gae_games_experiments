@@ -12,7 +12,6 @@ game.state.add('GameOver', MainGame.GameOverState);
 
 GUIManager = new GUIManager(game);
 CollisionManager = new CollisionManager(game);
-EffectManager = new EffectManager(game);
 
 
 game.state.start('Boot');

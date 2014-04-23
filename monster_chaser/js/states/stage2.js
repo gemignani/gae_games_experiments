@@ -69,14 +69,14 @@ MainGame.Stage2State.prototype = {
 		CollisionManager.update();
 		GUIManager.update();
 		
-	    /*this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
+	    this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
     	this.shadowTexture.context.fillRect(0, 0, this.game.width * 2, this.game.height * 2);
 		this.shadowTexture.context.beginPath();    	
 		this.shadowTexture.context.fillStyle = 'rgb(255, 255, 255)';
     	
     	this.shadowTexture.context.arc(this.game.player.x, this.game.player.y, this.LIGHT_RADIUS, 0, Math.PI*2);
     	this.shadowTexture.context.fill();
-    	this.shadowTexture.dirty = true;*/
+    	this.shadowTexture.dirty = true;
 
 	
 	},

@@ -7,14 +7,9 @@ MainGame.GameOverState.prototype = {
 	
 	create: function(){
 
-		this.game = game;
-		Phaser.Group.call(this, this.game, null, "hud");
-		this.offsetX = 10;
-		this.offsetY = 10;
-		this.fixedToCamera = true;
-		this.playerHealth = this.game.add.text(0, 0, "GAME OVER", { font: "18px monospace", fill: '#ffffff'}, this);
-
-		this.game.add.existing(this);
+		var text = "Game Over!";
+    	var style = { font: "25px Arial", fill: "#ff0044", align: "center" };
+	    var t = game.add.text(game.world.centerX - 250, 10, text, style);
 
 	},
 
