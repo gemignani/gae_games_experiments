@@ -18,9 +18,10 @@ MainGame.Stage2State.prototype = {
 		//tile-map
 		this.game.map = this.game.add.tilemap('level2');
 		this.game.map.addTilesetImage('tiles-2');
-		this.game.map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
+		this.game.map.setCollisionByExclusion([  ]);
 		this.game.layer = this.game.map.createLayer('Tile Layer 1');
 
+		//this.game.layer.debug = true;
 		CollisionManager.addObjectToGroup(this.game.layer, 'layers');
 		this.game.layer.resizeWorld();
 		
