@@ -1,7 +1,7 @@
 function Player(game, spawn) {
 	
 	this.game = game;
-	Phaser.Sprite.call(this, this.game, spawn.x, spawn.y, 'dude');
+	Phaser.Sprite.call(this, this.game, spawn.x, spawn.y, 'blackdude');
 	
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 

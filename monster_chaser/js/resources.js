@@ -21,6 +21,7 @@ MainGame.resources.LoaderState = {
 		  {name: 'dude', path: 'assets/sprite/dude.png', width: 32, height: 48}
 		, {name: 'blackdude', path: 'assets/sprite/blackdude.png', width: 32, height: 48}
 		, {name: 'droid', path: 'assets/sprite/droid.png', width: 32, height: 48}
+		, {name: 'ghost', path: 'assets/sprite/ghost.png', width: 55, height: 45}
 
 	]
 	, tilemaps: [
