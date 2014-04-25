@@ -16,7 +16,7 @@ MainGame.MainMenuState.prototype = {
 
 		start_btn.anchor.setTo(0.5, 0.5);
 		this.game.add.existing(start_btn);
-		var text = "Objectives:\n Find the exit door and avoid all the ghosts!";
+		var text = "Objectives:\n Find the exit door and avoid all the ghosts!\n How to play:\nWASD keys for movement and SPACE for jumping|";
     	var style = { font: "25px Arial", fill: "#ff0044", align: "center" };
 	    var t = game.add.text(game.world.centerX - 250, 10, text, style);
 
